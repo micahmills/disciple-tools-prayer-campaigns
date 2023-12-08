@@ -30,10 +30,10 @@ if ( !function_exists( 'dt_recursive_sanitize_array' ) ){
 
 //need to be accessible outside of D.T
 require_once( plugin_dir_path( __DIR__ ) . 'campaign-functions/porch-api.php' );
-require_once( plugin_dir_path( __DIR__ ) . 'shortcodes/24hour.php' );
 require_once( plugin_dir_path( __DIR__ ) . 'shortcodes/ongoing.php' );
 require_once( plugin_dir_path( __DIR__ ) . 'shortcodes/generic.php' );
 require_once( plugin_dir_path( __DIR__ ) . 'shortcodes/prayer-timer.php' );
+require_once( plugin_dir_path( __DIR__ ) . 'parts/components-enqueue.php' );
 
 
 function dt_campaigns_build_shortcode_from_array( $shortcode, $array ){
@@ -87,5 +87,5 @@ add_filter( 'wp_mail_from_name', function ( $name ) {
 
 function dt_campaigns_is_p4m_news_enabled(){
     //maybe make this a setting too.
-    return apply_filters( 'dt_campaigns_is_p4m_news_enabled', true );
+    return apply_filters( 'dt_campaigns_is_p4m_news_enabled', defined( 'WP_DEBUG' ) ? !WP_DEBUG : true );
 }

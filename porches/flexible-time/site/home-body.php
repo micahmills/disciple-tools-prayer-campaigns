@@ -82,24 +82,26 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
 }
 ?>
 
+<!-- MODALS -->
+<div id="edit_modal_div"></div>
+<!-- MODALS -->
+
 <!-- Vision -->
 <section id="campaign-vision" class="section">
     <div class="container">
         <div class="section-header row">
-            <div class="col-sm-12 col-md-8">
-                <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">
-                    <?php echo esc_html( dt_split_sentence( DT_Porch_Settings::get_field_translation( 'vision_title' ), 1, 2 ) ) ?> <span><?php echo esc_html( dt_split_sentence( DT_Porch_Settings::get_field_translation( 'vision_title' ), 2, 2 ) ) ?></span>
-                </h2>
+            <div class="col-sm-12 <?php echo esc_html( $campaign_has_end_date ? 'col-md-8' : 'col-md-12' ); ?>">
+                <?php display_translated_field( 'vision_title', 'h2', 'vision_section_title', 'section-title', 'btn-common', $allowedtags, true ); ?>
                 <hr class="lines wow zoomIn" data-wow-delay="0.3s">
-                <div style="padding: 2em">
-                <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s" style="padding:2em">
-                    <?php echo nl2br( wp_kses( DT_Porch_Settings::get_field_translation( 'vision' ), $allowedtags ) ); ?>
-                </p>
+                <div style="padding: 1em">
+                <?php display_translated_field( 'vision', 'p', 'vision_section_text', 'section-subtitle', 'btn-common', $allowedtags ); ?>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
-                <?php dt_generic_percentage_shortcode( $dt_campaign_selected_campaign_magic_link_settings ); ?>
-            </div>
+            <?php if ( $campaign_has_end_date ): ?>
+                <div class="col-sm-12 col-md-4">
+                    <?php dt_generic_percentage_shortcode( $dt_campaign_selected_campaign_magic_link_settings ); ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="row">
             <div class="col-md-4 col-sm-6">
@@ -107,17 +109,17 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
                     <div class="icon">
                         <img class="<?php echo !empty( $porch_fields['pray_section_icon']['value'] ) ? '' : 'color-img'?>" style="height: 40px; margin-top:10px" src="<?php echo esc_html( DT_Porch_Settings::get_field_translation( 'pray_section_icon' ) ) ?>" alt="Praying hands icon"/>
                     </div>
-                    <h4><?php echo esc_html( DT_Porch_Settings::get_field_translation( 'pray_section_title' ) ) ?></h4>
-                    <p><?php echo wp_kses( DT_Porch_Settings::get_field_translation( 'pray_section_text' ), $allowedtags ) ?></p>
+                    <?php display_translated_field( 'pray_section_title', 'h4', 'pray_section_title', 'section-title', 'btn-common', $allowedtags ); ?>
+                    <?php display_translated_field( 'pray_section_text', 'p', 'pray_section_text', 'section-text', 'btn-common', $allowedtags ); ?>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="item-boxes wow fadeInDown" data-wow-delay="0.4s">
                     <div class="icon">
-                        <img class="<?php echo !empty( $porch_fields['movement_section_icon']['value'] ) ? '' : 'color-img'?>" style="height: 40px; margin-top:10px" src="<?php echo esc_html( DT_Porch_Settings::get_field_translation( 'movement_section_icon' ) ) ?>" alt="Movement  icon"/>
+                        <img class="<?php echo !empty( $porch_fields['movement_section_icon']['value'] ) ? '' : 'color-img'?>" style="height: 40px; margin-top:10px" src="<?php echo esc_html( DT_Porch_Settings::get_field_translation( 'movement_section_icon' ) ) ?>" alt="Movement icon"/>
                     </div>
-                    <h4><?php echo esc_html( DT_Porch_Settings::get_field_translation( 'movement_section_title' ) ) ?></h4>
-                    <p><?php echo wp_kses( DT_Porch_Settings::get_field_translation( 'movement_section_text' ), $allowedtags ) ?></p>
+                    <?php display_translated_field( 'movement_section_title', 'h4', 'movement_section_title', 'section-title', 'btn-common', $allowedtags ); ?>
+                    <?php display_translated_field( 'movement_section_text', 'p', 'movement_section_text', 'section-text', 'btn-common', $allowedtags ); ?>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -125,8 +127,8 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
                     <div class="icon">
                         <img class="<?php echo !empty( $porch_fields['time_section_icon']['value'] ) ? '' : 'color-img'?>" style="height: 40px; margin-top:10px" src="<?php echo esc_html( DT_Porch_Settings::get_field_translation( 'time_section_icon' ) ) ?>" alt="Clock icon"/>
                     </div>
-                    <h4><?php echo esc_html( DT_Porch_Settings::get_field_translation( 'time_section_title' ) ) ?></h4>
-                    <p><?php echo wp_kses( DT_Porch_Settings::get_field_translation( 'time_section_text' ), $allowedtags ) ?></p>
+                    <?php display_translated_field( 'time_section_title', 'h4', 'time_section_title', 'section-title', 'btn-common', $allowedtags ); ?>
+                    <?php display_translated_field( 'time_section_text', 'p', 'time_section_text', 'section-text', 'btn-common', $allowedtags ); ?>
                 </div>
             </div>
         </div>
@@ -149,23 +151,15 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
                     <div class="facts-item">
                         <div class="fact-count">
                             <counter-row
-                                starting_label="<?php echo esc_html__( 'Ramadan Begins ...', 'disciple-tools-prayer-campaigns' ); ?>"
-                                ending_label="<?php echo esc_html__( 'Ramadan Ends ...', 'disciple-tools-prayer-campaigns' ); ?>"
-                                is_finished="<?php echo esc_html__( 'Ramadan Is Finished', 'disciple-tools-prayer-campaigns' ); ?>"
-                                end_time="<?php echo esc_html( $campaign_fields['end_date']['timestamp'] ); ?>"
+                                end_time="<?php echo esc_html( $campaign_fields['end_date']['timestamp'] ?? null ); ?>"
                                 start_time="<?php echo esc_html( $campaign_fields['start_date']['timestamp'] ); ?>">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 50px">
-            <div class="col-sm-12 col-md-8 what-content-text">
-                <?php
-                    global $allowedtags;
-                    echo wp_kses( DT_Porch_Settings::get_field_translation( 'what_content' ), $allowedtags );
-                ?>
-            </div>
+        <div class="row" style="margin-top: 30px">
+            <?php display_translated_field( 'what_content', 'div', 'what_section_text', 'col-sm-12 col-md-8 what-content-text', 'btn-border', $allowedtags ); ?>
             <div class="col-sm-12 col-md-4">
                 <?php dt_generic_calendar_shortcode( $dt_campaign_selected_campaign_magic_link_settings ); ?>
             </div>
@@ -181,16 +175,7 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
             <hr class="lines wow zoomIn" data-wow-delay="0.3s">
         </div>
         <div class="row">
-            <?php
-            if ( empty( $dt_campaign_selected_campaign_magic_link_settings ) ) :?>
-
-            <p style="margin:auto">Choose campaign in settings <a href="<?php echo esc_html( admin_url( 'admin.php?page=dt_porch_template&tab=general' ) );?>"><?php esc_html_e( 'here', 'disciple-tools-prayer-campaigns' ); ?></a></p>
-
-            <?php else : ?>
-
-                <?php dt_generic_signup_shortcode( $dt_campaign_selected_campaign_magic_link_settings ); ?>
-
-            <?php endif; ?>
+            <?php dt_generic_signup_shortcode( $dt_campaign_selected_campaign_magic_link_settings ); ?>
         </div>
     </div>
 </section>
@@ -201,7 +186,7 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
-            <?php $days_in_campaign = DT_Campaign_Fuel::total_days_in_campaign(); ?>
+            <?php $days_in_campaign = DT_Campaign_Fuel::total_days_in_campaign();?>
             <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="wow fadeInUp" data-wow-delay=".2s">
                     <div class="facts-item">
@@ -210,12 +195,12 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
                         </div>
                         <div class="fact-count">
 
-                            <?php if ( $campaign_type === '24hour' ): ?>
+                            <?php if ( $campaign_has_end_date ): ?>
 
                                 <h3><span class="counter"><?php echo $days_in_campaign !== -1 ? esc_html( $days_in_campaign ) : '30' ?></span></h3>
                                 <h4><?php esc_html_e( 'Days', 'disciple-tools-prayer-campaigns' ); ?></h4>
 
-                            <?php elseif ( $campaign_type === 'ongoing' ): ?>
+                            <?php else : ?>
 
                                 <h3><?php esc_html_e( 'Next', 'disciple-tools-prayer-campaigns' ) ?></h3>
                                 <h4><?php esc_html_e( 'Month', 'disciple-tools-prayer-campaigns' ); ?></h4>
@@ -237,12 +222,12 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
                         </div>
                         <div class="fact-count">
 
-                            <?php if ( $campaign_type === '24hour' ): ?>
+                            <?php if ( $campaign_has_end_date ): ?>
 
                                 <h3><?php echo $days_in_campaign !== -1 ? esc_html( $days_in_campaign * 24 ) : '720' ?></h3>
                                 <h4><?php esc_html_e( 'Hours of Prayer', 'disciple-tools-prayer-campaigns' ); ?></h4>
 
-                            <?php elseif ( $campaign_type === 'ongoing' ): ?>
+                            <?php else : ?>
 
                                 <h3><?php echo esc_html( $hours_next_month ) ?></h3>
                                 <h4><?php esc_html_e( 'Hours', 'disciple-tools-prayer-campaigns' ); ?></h4>
@@ -260,15 +245,15 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
                         </div>
                         <div class="fact-count">
 
-                            <?php if ( $campaign_type === '24hour' ): ?>
+                            <?php if ( $campaign_has_end_date ): ?>
 
                                 <h3><?php echo $days_in_campaign !== -1 ? esc_html( $days_in_campaign * 24 * 4 ) : '2880' ?></h3>
                                 <h4><?php esc_html_e( 'Prayer Commitments Needed', 'disciple-tools-prayer-campaigns' ); ?></h4>
 
-                            <?php elseif ( $campaign_type === 'ongoing' ): ?>
+                            <?php else : ?>
 
                                 <h3><?php echo esc_html( $more_hours_needed ) ?></h3>
-                                <h4><?php esc_html_e( 'More Hours to be covered', 'disciple-tools-prayer-campaigns' ); ?></h4>
+                                <h4><?php esc_html_e( 'Hours Remaining', 'disciple-tools-prayer-campaigns' ); ?></h4>
 
                             <?php endif; ?>
 
@@ -296,4 +281,3 @@ function display_translated_field( $field_key, $section_tag, $section_id, $secti
     </div>
 </section>
 <!-- blog Section End -->
-

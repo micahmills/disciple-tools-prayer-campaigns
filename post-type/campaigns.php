@@ -178,6 +178,30 @@ class DT_Campaigns_Base {
                 'show_in_table' => 10,
                 'select_cannot_be_empty' => true,
             ];
+            $fields['type'] = [
+                'name'        => 'Campaign Type',
+                'description' => 'Set the current type.',
+                'type'        => 'key_select',
+                'default'     => [
+                    'ongoing' => [
+                        'label' => '24/7 Ongoing Campaign',
+                        'description' => __( '247 Prayer for months', 'disciple-tools-prayer-campaigns' ),
+                        'visibility' => __( 'Collaborators', 'disciple-tools-prayer-campaigns' ),
+                        'color' => '#4CAF50',
+                    ],
+                    'flexible' => [
+                        'label' => 'Flexible Campaign',
+                        'description' => __( 'Prayer for a specific event', 'disciple-tools-prayer-campaigns' ),
+                        'visibility' => __( 'Collaborators', 'disciple-tools-prayer-campaigns' ),
+                        'color' => '#4CAF50',
+                    ],
+                ],
+                'tile'     => 'status',
+                'default_color' => '#F43636',
+                'show_in_table' => 15,
+                'in_create_form' => false,
+                'select_cannot_be_empty' => true,
+           ];
             // end basic framework fields
 
             $fields['name']['tile'] = 'status';

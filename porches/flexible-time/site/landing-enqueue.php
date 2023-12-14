@@ -6,7 +6,7 @@ class DT_Flexible_Time_Porch_Landing_Enqueue
 {
     public static function load_scripts() {
         $lang = dt_campaign_get_current_lang();
-        $translations = dt_campaign_list_languages();
+        $langs = DT_Campaign_Languages::get_enabled_languages( $campaign_fields['ID'] );
         if ( isset( $translations[$lang]['dir'] ) && $translations[$lang]['dir'] === 'rtl' ){
             wp_enqueue_style( 'porch-style-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/rtl.css', array(), filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'css/rtl.css' ), 'all' );
         }

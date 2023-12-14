@@ -33,7 +33,6 @@ class DT_Prayer_Campaigns_Campaigns {
          * ]
          */
         $wizard_types = apply_filters( 'dt_campaigns_wizard_types', [] );
-
         $wizard_details = isset( $wizard_types[$wizard_type] ) ? $wizard_types[$wizard_type] : [];
         $porch_type = isset( $wizard_details['porch'] ) ? $wizard_details['porch'] : 'generic-porch';
         $campaign_type = isset( $wizard_details['campaign_type'] ) ? $wizard_details['campaign_type'] : 'generic';
@@ -47,6 +46,7 @@ class DT_Prayer_Campaigns_Campaigns {
             'start_date' => dt_format_date( time(), 'Y-m-d' ),
             'status' => 'active',
             'porch_type' => $porch_type,
+            'campaign_type' => $campaign_type,
         ];
 
         if ( $porch_type === 'ramadan-porch' ) {

@@ -15,8 +15,9 @@ class DT_Flexible_Time_Porch_Loader extends DT_Generic_Porch_Loader {
 
     public function wizard_types( $wizard_types ) {
         $wizard_types[$this->id] = [
+            'campaign_type' => 'flexible',
             'porch' => $this->id,
-            'label' => 'Flexible Time Template',
+            'label' => 'Flexible Campaign Template',
         ];
 
         return $wizard_types;
